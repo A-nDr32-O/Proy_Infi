@@ -1,32 +1,22 @@
-public class pago {
+class Pago {
+    private double monto;
+    private String metodoPago;
 
-    private Double monto;
-
-    public pago() {
-    }
-
-    public pago(Double monto) {
+    public Pago(double monto, String metodoPago) {
         this.monto = monto;
+        this.metodoPago = metodoPago;
     }
 
-    public Double getMonto() {
+    public void procesarPago() {
+        System.out.println("Procesando pago de $" + monto + " mediante " + metodoPago + "...");
+        System.out.println("Pago exitoso.");
+    }
+
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
-        this.monto = monto;
-    }
-
-    @Override
-    public String toString() {
-        return "pago{" +
-                "monto=" + monto +
-                '}';
-    }
-
-    //Metodo de clase
-
-    public void procesarPago(){
-
+    public String getMetodoPago() {
+        return metodoPago;
     }
 }
