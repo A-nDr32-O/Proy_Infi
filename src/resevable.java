@@ -1,46 +1,102 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Habitacion {
     private int numero;
     private String tipo;
-    private List<String[]> reservas;
+    private double precio;
+    private boolean reservada;
+    private String fechaFinReserva;
 
-    public Habitacion(int numero, String tipo) {
+    public Habitacion() {
+    }
+
+    public Habitacion(int numero, String tipo, double precio) {
         this.numero = numero;
         this.tipo = tipo;
-        this.reservas = new ArrayList<>();
-    }
-
-    public boolean reservar(String fechaInicio, String fechaFin) {
-        if (verificarDisponibilidad(fechaInicio, fechaFin)) {
-            reservas.add(new String[]{fechaInicio, fechaFin});
-            System.out.println("Habitación " + numero + " reservada del " + fechaInicio + " al " + fechaFin + ".");
-            return true;
-        }
-        System.out.println("Habitación no disponible.");
-        return false;
-    }
-
-    public void cancelar(String fechaInicio, String fechaFin) {
-        reservas.removeIf(r -> r[0].equals(fechaInicio) && r[1].equals(fechaFin));
-        System.out.println("Reserva cancelada del " + fechaInicio + " al " + fechaFin + ".");
-    }
-
-    public boolean verificarDisponibilidad(String fechaInicio, String fechaFin) {
-        for (String[] rango : reservas) {
-            if (rango[0].equals(fechaInicio) && rango[1].equals(fechaFin)) {
-                return false;
-            }
-        }
-        return true;
+        this.precio = precio;
+        this.reservada = false;
+        this.fechaFinReserva = null;
     }
 
     public int getNumero() {
         return numero;
     }
 
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
     public String getTipo() {
         return tipo;
     }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public boolean isReservada() {
+        return reservada;
+    }
+
+    public void setReservada(boolean reservada) {
+        this.reservada = reservada;
+    }
+
+    public String getFechaFinReserva() {
+        return fechaFinReserva;
+    }
+
+    public void setFechaFinReserva(String fechaFinReserva) {
+        this.fechaFinReserva = fechaFinReserva;
+    }
+
+    public boolean reservar(String fechaInicio, String fechaFin) {
+        if (!reservada) {
+            reservada = true;
+            this.fechaFinReserva = fechaFin;
+            System.out.println("Habitación " + numero + " reservada del " + fechaInicio + " al " + fechaFin);
+            return true;
+        } else {
+            System.out.println("La habitación " + numero + " ya está reservada.");
+            return false;
+        }
+    }
+
+    public void cancelar(String fechaInicio, String fechaFin) {
+        if (reservada) {
+            reservada = false;
+            this.fechaFinReserva = null;
+            System.out.println("Reserva de la habitación " + numero + " cancelada del " + fechaInicio + " al " + fechaFin);
+        } else {
+            System.out.println("La habitación " + numero + " no está reservada.");
+        }
+    }
+
+    public boolean renovarReserva(String nuevaFechaFin) {
+        if (reservada) {
+            System.out.println("Reserva de la habitación " + numero + " renovada hasta " + nuevaFechaFin);
+            this.fechaFinReserva = nuevaFechaFin;
+            return true;
+        } else {
+            System.out.println("No hay una reserva activa para esta habitación.");
+            return false;
+        }
+    }
 }
+    /*public boolean verificarDisponibilidad(String fechaInicio, String fechaFin) {
+        for (String[] rango : reservas) {
+            if (rango[0].equals(fechaInicio) && rango[1].equals(fechaFin)) {
+                return false;
+            }
+        }
+        return true;
+    }*/
+
+
+

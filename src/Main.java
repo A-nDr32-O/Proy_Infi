@@ -4,15 +4,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         SistemaDeReservas sistema = new SistemaDeReservas();
+        ArrayList<ServicioAdicional> servicios = new ArrayList<>();
         ArrayList<Habitacion> habitaciones = new ArrayList<>();
 
         // Agregamos algunas habitaciones de ejemplo
-        habitaciones.add(new Habitacion(101, "Simple"));
-        habitaciones.add(new Habitacion(102, "Doble"));
-        habitaciones.add(new Habitacion(103, "Suite"));
+        habitaciones.add(new Habitacion(101, "Simple", 150));
+        habitaciones.add(new Habitacion(102, "Doble", 250));
+        habitaciones.add(new Habitacion(103, "Suite", 500));
+
+        // Agregamos algunos servicios adicionales de ejemplo
+        servicios.add(new ServicioAdicional("Piscina", 15.0));
+        servicios.add(new ServicioAdicional("Restaurante", 30.0));
+        servicios.add(new ServicioAdicional("Spa", 50.0));
+        servicios.add(new ServicioAdicional("Gimnasio", 20.0));
 
         // Usuario de ejemplo para iniciar sesión sin registrarse
-        sistema.registrarCliente("usuarioEjemplo", "1234", "00000000");
+        sistema.registrarCliente("Ejemplo", "7859632574");
+        sistema.registrarCliente("Ejemplo2", "7586935241");
+        sistema.registrarCliente("Ejemplo3", "3256479853");
 
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
@@ -24,6 +33,7 @@ public class Main {
             System.out.println("3. Cerrar Sesión");
             System.out.println("4. Reservar Habitación");
             System.out.println("5. Cancelar Reserva");
+            System.out.println("6. Listar Usuarios Registrados");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -34,18 +44,16 @@ public class Main {
                 case 1:
                     System.out.print("Nombre del cliente: ");
                     String nombre = scanner.nextLine();
-                    System.out.print("Contraseña: ");
-                    String contrasena = scanner.nextLine();
                     System.out.print("DNI: ");
                     String dni = scanner.nextLine();
-                    sistema.registrarCliente(nombre, contrasena, dni);
+                    sistema.registrarCliente(nombre, dni);
                     break;
                 case 2:
                     System.out.print("Nombre de usuario: ");
                     nombre = scanner.nextLine();
-                    System.out.print("Contraseña: ");
-                    contrasena = scanner.nextLine();
-                    sistema.iniciarSesion(nombre, contrasena);
+                    System.out.print("Dni: ");
+                    dni = scanner.nextLine();
+                    sistema.iniciarSesion(nombre, dni);
                     break;
                 case 3:
                     sistema.cerrarSesion();
@@ -68,14 +76,42 @@ public class Main {
                             String fechaFin = scanner.nextLine();
 
                             if (habitacion.reservar(fechaInicio, fechaFin)) {
-                                System.out.print("Ingrese el monto de pago: ");
-                                double montoPago = scanner.nextDouble();
-                                scanner.nextLine();
+                                double montoTotal = habitacion.getPrecio(); // Asumimos que la habitación tiene un precio
+
+                                // Seleccionar servicios adicionales
+                                System.out.println("¿Desea agregar servicios adicionales? (si/no): ");
+                                String respuesta = scanner.nextLine();
+
+                                if (respuesta.equalsIgnoreCase("si")) {
+                                    System.out.println("Servicios adicionales disponibles:");
+                                    for (int i = 0; i < servicios.size(); i++) {
+                                        System.out.print((i + 1) + ". ");
+                                        servicios.get(i).mostrarDetalle();
+                                    }
+
+                                    System.out.print("Seleccione los números de los servicios a agregar (separados por comas): ");
+                                    String[] seleccionServicios = scanner.nextLine().split(",");
+
+                                    for (String seleccion : seleccionServicios) {
+                                        int servicioSeleccionado = Integer.parseInt(seleccion.trim());
+                                        if (servicioSeleccionado > 0 && servicioSeleccionado <= servicios.size()) {
+                                            ServicioAdicional servicio = servicios.get(servicioSeleccionado - 1);
+                                            montoTotal += servicio.getCosto();
+                                            System.out.println("Servicio de " + servicio.getNombre() + " agregado.");
+                                        } else {
+                                            System.out.println("Selección de servicio inválida: " + servicioSeleccionado);
+                                        }
+                                    }
+                                }
+
+                                // Procesar el pago de la reserva y servicios adicionales
+                                System.out.println("Monto total a pagar por la reserva y servicios: $" + montoTotal);
                                 System.out.print("Método de pago (efectivo/tarjeta): ");
                                 String metodoPago = scanner.nextLine();
 
-                                Pago pago = new Pago(montoPago, metodoPago);
+                                Pago pago = new Pago(montoTotal, metodoPago);
                                 pago.procesarPago();
+                                System.out.println("Reserva y servicios adicionales confirmados.");
                             }
                         } else {
                             System.out.println("Número de habitación no encontrado.");
@@ -106,6 +142,46 @@ public class Main {
                         }
                     } else {
                         System.out.println("Debe iniciar sesión para cancelar una reserva.");
+                    }
+                    break;
+                case 6:
+                    sistema.listarClientes();
+                    break;
+                case 7:
+                    if (sistema.getClienteActual() != null) {
+                        System.out.print("Número de habitación a renovar: ");
+                        int numeroHabitacion = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Habitacion habitacion = habitaciones.stream()
+                                .filter(h -> h.getNumero() == numeroHabitacion)
+                                .findFirst()
+                                .orElse(null);
+
+                        if (habitacion != null) {
+                            if (habitacion.isReservada()) {
+                                System.out.print("Nueva fecha de fin de la reserva (YYYY-MM-DD): ");
+                                String nuevaFechaFin = scanner.nextLine();
+
+                                // Renovar la reserva
+                                if (habitacion.renovarReserva(nuevaFechaFin)) {
+                                    double montoAdicional = habitacion.getPrecio();
+                                    System.out.println("Monto adicional por la renovación: $" + montoAdicional);
+                                    System.out.print("Método de pago para la renovación (efectivo/tarjeta): ");
+                                    String metodoPago = scanner.nextLine();
+
+                                    Pago pago = new Pago(montoAdicional, metodoPago);
+                                    pago.procesarPago();
+                                    System.out.println("Renovación de reserva confirmada.");
+                                }
+                            } else {
+                                System.out.println("No hay reserva activa para esta habitación.");
+                            }
+                        } else {
+                            System.out.println("Número de habitación no encontrado.");
+                        }
+                    } else {
+                        System.out.println("Debe iniciar sesión para renovar una reserva.");
                     }
                     break;
                 case 0:
