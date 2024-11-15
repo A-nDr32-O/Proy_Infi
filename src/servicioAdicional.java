@@ -1,71 +1,37 @@
-public class servicioAdicional implements reservable{
+class ServicioAdicional {
+    private String nombre;
+    private double costo;
 
-    private int idServicio;
-    private String descricion;
-    private int precio;
-
-    public servicioAdicional() {
+    public ServicioAdicional() {
     }
 
-    public servicioAdicional(int idServicio, String descricion, int precio) {
-        this.idServicio = idServicio;
-        this.descricion = descricion;
-        this.precio = precio;
+    public ServicioAdicional(String nombre, double costo) {
+        this.nombre = nombre;
+        this.costo = costo;
     }
 
-    public int getIdServicio() {
-        return idServicio;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdServicio(int idServicio) {
-        this.idServicio = idServicio;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDescricion() {
-        return descricion;
+    public double getCosto() {
+        return costo;
     }
 
-    public void setDescricion(String descricion) {
-        this.descricion = descricion;
-    }
-
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setCosto(double costo) {
+        this.costo = costo;
     }
 
     @Override
     public String toString() {
-        return "servicioAdicional{" +
-                "idServicio=" + idServicio +
-                ", descricion='" + descricion + '\'' +
-                ", precio=" + precio +
-                '}';
+        return "Servicio: " + nombre + ", Costo: $" + costo;
     }
 
-    //Metodo de clase
-
-    public void obtenerInfo(){
-
-    }
-
-    //Metodos de interfaz
-
-    @Override
-    public void reservar() {
-
-    }
-
-    @Override
-    public void cancelar() {
-
-    }
-
-    @Override
-    public void verificarDiponibilidad() {
-
+    public void mostrarDetalle() {
+        toString();
     }
 }

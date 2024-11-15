@@ -1,32 +1,37 @@
-public class pago {
+interface IPago {
+    void procesarPago();
+}
 
-    private Double monto;
+class Pago implements IPago {
+    private double monto;
+    private String metodo;
 
-    public pago() {
+    public Pago() {
     }
 
-    public pago(Double monto) {
+    public Pago(double monto, String metodo) {
         this.monto = monto;
+        this.metodo = metodo;
     }
 
-    public Double getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
-    @Override
-    public String toString() {
-        return "pago{" +
-                "monto=" + monto +
-                '}';
+    public String getMetodo() {
+        return metodo;
     }
 
-    //Metodo de clase
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
+    }
 
-    public void procesarPago(){
-
+    @Override
+    public void procesarPago() {
+        System.out.println("Procesando el pago de $" + monto + " mediante " + metodo);
     }
 }
