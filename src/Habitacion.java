@@ -98,5 +98,3 @@ class Habitacion {
         return true;
     }*/
 
-
-
