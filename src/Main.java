@@ -8,27 +8,27 @@ public class Main {
         ArrayList<Habitacion> habitaciones = new ArrayList<>();
 
         // Ejemplos de habitaciones
-        habitaciones.add(new Habitacion(101, "Simple", 150));
-        habitaciones.add(new Habitacion(102, "Doble", 250));
-        habitaciones.add(new Habitacion(103, "Suite", 500));
+        habitaciones.add(new Habitacion(101, "Simple", 150000));
+        habitaciones.add(new Habitacion(102, "Doble", 250000));
+        habitaciones.add(new Habitacion(103, "Suite", 500000));
 
         //Ejemplos de servicios adicionales
-        servicios.add(new ServicioAdicional("Piscina", 15.0));
-        servicios.add(new ServicioAdicional("Restaurante", 30.0));
-        servicios.add(new ServicioAdicional("Spa", 50.0));
-        servicios.add(new ServicioAdicional("Gimnasio", 20.0));
+        servicios.add(new ServicioAdicional("Piscina", 15000));
+        servicios.add(new ServicioAdicional("Restaurante", 30000));
+        servicios.add(new ServicioAdicional("Spa", 30000));
+        servicios.add(new ServicioAdicional("Gimnasio", 20000));
 
         // Usuarios para iniciar sesión sin registrarse
-        sistema.registrarCliente("Ejemplo", "7859632574");
-        sistema.registrarCliente("Ejemplo2", "7586935241");
-        sistema.registrarCliente("Ejemplo3", "3256479853");
+        sistema.registrarCliente("Brayan", "1003660985");
+        sistema.registrarCliente("Andres", "1072642260");
+        sistema.registrarCliente("Pachito", "1076136352");
 
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\n--- Sistema de Reservas ---");
-            System.out.println("1. Registrar Cliente");
+            System.out.println("\n--- Hotel infidelidades ---");
+            System.out.println("\n1. Registrar Cliente");
             System.out.println("2. Iniciar Sesión");
             System.out.println("3. Cerrar Sesión");
             System.out.println("4. Reservar Habitación");
@@ -88,7 +88,7 @@ public class Main {
                                         servicios.get(i).mostrarDetalle();
                                     }
 
-                                    System.out.print("Seleccione los números de los servicios a agregar (separados por comas): ");
+                                    System.out.print("\nSeleccione los números de los servicios a agregar (separados por comas): ");
                                     String[] seleccionServicios = scanner.nextLine().split(",");
 
                                     for (String seleccion : seleccionServicios) {

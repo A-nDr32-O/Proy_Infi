@@ -26,12 +26,7 @@ class ServicioAdicional {
         this.costo = costo;
     }
 
-    @Override
-    public String toString() {
-        return "Servicio: " + nombre + ", Costo: $" + costo;
-    }
-
     public void mostrarDetalle() {
-        toString();
+        System.out.println("Servicio: " + nombre + ", Costo: $" + costo);
     }
 }
