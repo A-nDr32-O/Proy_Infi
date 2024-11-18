@@ -5,9 +5,9 @@ class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String dni) {
+    public Cliente(String nombre, String doc) {
         this.nombre = nombre;
-        this.doc = dni;
+        this.doc = doc;
     }
 
     public String getNombre() {
@@ -26,8 +26,8 @@ class Cliente {
         this.doc = doc;
     }
 
-    public boolean registrar(String nombre, String dni) {
-        if (this.nombre.equals(nombre) && this.doc.equals(dni)) {
+    public boolean registrar(String nombre, String doc) {
+        if (this.nombre.equals(nombre) && this.doc.equals(doc)) {
             System.out.println("Cliente ya registrado.");
             return false;
         }
