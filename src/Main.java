@@ -45,15 +45,15 @@ public class Main {
                     System.out.print("Nombre del cliente: ");
                     String nombre = scanner.nextLine();
                     System.out.print("Doc: ");
-                    String dni = scanner.nextLine();
-                    sistema.registrarCliente(nombre, dni);
+                    String doc = scanner.nextLine();
+                    sistema.registrarCliente(nombre, doc);
                     break;
                 case 2:
                     System.out.print("Nombre de usuario: ");
                     nombre = scanner.nextLine();
                     System.out.print("Doc: ");
-                    dni = scanner.nextLine();
-                    sistema.iniciarSesion(nombre, dni);
+                    doc = scanner.nextLine();
+                    sistema.iniciarSesion(nombre, doc);
                     break;
                 case 3:
                     sistema.cerrarSesion();
