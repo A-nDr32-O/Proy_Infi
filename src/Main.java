@@ -7,18 +7,18 @@ public class Main {
         ArrayList<ServicioAdicional> servicios = new ArrayList<>();
         ArrayList<Habitacion> habitaciones = new ArrayList<>();
 
-        // Agregamos algunas habitaciones de ejemplo
+        // Ejemplos de habitaciones
         habitaciones.add(new Habitacion(101, "Simple", 150));
         habitaciones.add(new Habitacion(102, "Doble", 250));
         habitaciones.add(new Habitacion(103, "Suite", 500));
 
-        // Agregamos algunos servicios adicionales de ejemplo
+        //Ejemplos de servicios adicionales
         servicios.add(new ServicioAdicional("Piscina", 15.0));
         servicios.add(new ServicioAdicional("Restaurante", 30.0));
         servicios.add(new ServicioAdicional("Spa", 50.0));
         servicios.add(new ServicioAdicional("Gimnasio", 20.0));
 
-        // Usuario de ejemplo para iniciar sesión sin registrarse
+        // Usuarios para iniciar sesión sin registrarse
         sistema.registrarCliente("Ejemplo", "7859632574");
         sistema.registrarCliente("Ejemplo2", "7586935241");
         sistema.registrarCliente("Ejemplo3", "3256479853");
@@ -44,14 +44,14 @@ public class Main {
                 case 1:
                     System.out.print("Nombre del cliente: ");
                     String nombre = scanner.nextLine();
-                    System.out.print("DNI: ");
+                    System.out.print("Doc: ");
                     String dni = scanner.nextLine();
                     sistema.registrarCliente(nombre, dni);
                     break;
                 case 2:
                     System.out.print("Nombre de usuario: ");
                     nombre = scanner.nextLine();
-                    System.out.print("Dni: ");
+                    System.out.print("Doc: ");
                     dni = scanner.nextLine();
                     sistema.iniciarSesion(nombre, dni);
                     break;
@@ -76,9 +76,8 @@ public class Main {
                             String fechaFin = scanner.nextLine();
 
                             if (habitacion.reservar(fechaInicio, fechaFin)) {
-                                double montoTotal = habitacion.getPrecio(); // Asumimos que la habitación tiene un precio
+                                double montoTotal = habitacion.getPrecio();
 
-                                // Seleccionar servicios adicionales
                                 System.out.println("¿Desea agregar servicios adicionales? (si/no): ");
                                 String respuesta = scanner.nextLine();
 
@@ -104,7 +103,6 @@ public class Main {
                                     }
                                 }
 
-                                // Procesar el pago de la reserva y servicios adicionales
                                 System.out.println("Monto total a pagar por la reserva y servicios: $" + montoTotal);
                                 System.out.print("Método de pago (efectivo/tarjeta): ");
                                 String metodoPago = scanner.nextLine();

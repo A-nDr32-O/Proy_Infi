@@ -9,7 +9,15 @@ class SistemaDeReservas {
         this.clienteActual = null;
     }
 
-    public void registrarCliente(String nombre, String dni) {
+    public Cliente getClienteActual() {
+        return clienteActual;
+    }
+
+    public void setClienteActual(Cliente clienteActual) {
+        this.clienteActual = clienteActual;
+    }
+
+    public void registrarCliente(String nombre, String doc) {
         for (Cliente cliente : clientes) {
             if (cliente.getNombre().equals(nombre)) {
                 System.out.println("Error: El nombre de cliente ya está en uso.");
@@ -17,16 +25,16 @@ class SistemaDeReservas {
             }
         }
 
-        Cliente nuevoCliente = new Cliente(nombre, dni);
+        Cliente nuevoCliente = new Cliente(nombre, doc);
         clientes.add(nuevoCliente);
         System.out.println("Cliente " + nombre + " registrado exitosamente.");
     }
 
-    public Cliente iniciarSesion(String nombre, String dni) {
+    public Cliente iniciarSesion(String nombre, String doc) {
         for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equals(nombre) && cliente.getDni().equals(dni)) {
+            if (cliente.getNombre().equals(nombre) && cliente.getDoc().equals(doc)) {
                 clienteActual = cliente;
-                System.out.println("Inicio de sesión exitoso. Bienvenido, " + cliente.getNombre() + ".");
+                System.out.println("Bienvenido, " + cliente.getNombre() + ".");
                 return cliente;
             }
         }
@@ -43,17 +51,13 @@ class SistemaDeReservas {
         }
     }
 
-    public Cliente getClienteActual() {
-        return clienteActual;
-    }
-
     public void listarClientes() {
         System.out.println("\n--- Lista de Usuarios Registrados ---");
         if (clientes.isEmpty()) {
             System.out.println("No hay usuarios registrados.");
         } else {
             for (Cliente cliente : clientes) {
-                System.out.println("Nombre: " + cliente.getNombre() + ", DNI: " + cliente.getDni());
+                System.out.println("Nombre: " + cliente.getNombre() + ", Doc: " + cliente.getDoc());
             }
         }
     }
