@@ -34,7 +34,7 @@ class SistemaDeReservas {
         for (Cliente cliente : clientes) {
             if (cliente.getNombre().equals(nombre) && cliente.getDoc().equals(doc)) {
                 clienteActual = cliente;
-                System.out.println("Bienvenido, " + cliente.getNombre() + ".");
+                System.out.println("\nBienvenido, " + cliente.getNombre() + ".");
                 return cliente;
             }
         }
@@ -44,7 +44,7 @@ class SistemaDeReservas {
 
     public void cerrarSesion() {
         if (clienteActual != null) {
-            System.out.println(clienteActual.getNombre() + " ha cerrado sesión.");
+            System.out.println("\n" + clienteActual.getNombre() + " ha cerrado sesión.");
             clienteActual = null;
         } else {
             System.out.println("No hay ninguna sesión activa.");
@@ -52,9 +52,9 @@ class SistemaDeReservas {
     }
 
     public void listarClientes() {
-        System.out.println("\n--- Lista de Usuarios Registrados ---");
+        System.out.println("\n--- Lista de Usuarios Registrados ---\n");
         if (clientes.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
+            System.out.println("\nNo hay usuarios registrados.");
         } else {
             for (Cliente cliente : clientes) {
                 System.out.println("Nombre: " + cliente.getNombre() + ", Doc: " + cliente.getDoc());

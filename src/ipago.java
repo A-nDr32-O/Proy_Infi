@@ -32,6 +32,6 @@ class Pago implements IPago {
 
     @Override
     public void procesarPago() {
-        System.out.println("Procesando el pago de $" + monto + " mediante " + metodo);
+        System.out.println("\nProcesando el pago de $" + monto + " mediante " + metodo);
     }
 }

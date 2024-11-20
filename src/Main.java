@@ -8,9 +8,9 @@ public class Main {
         ArrayList<Habitacion> habitaciones = new ArrayList<>();
 
         // Ejemplos de habitaciones
-        habitaciones.add(new Habitacion(101, "Simple", 150000));
-        habitaciones.add(new Habitacion(102, "Doble", 250000));
-        habitaciones.add(new Habitacion(103, "Suite", 500000));
+        habitaciones.add(new Habitacion(101, "Simple", 45000));
+        habitaciones.add(new Habitacion(102, "Doble", 59000));
+        habitaciones.add(new Habitacion(103, "Suite", 75000));
 
         //Ejemplos de servicios adicionales
         servicios.add(new ServicioAdicional("Piscina", 15000));
@@ -19,7 +19,7 @@ public class Main {
         servicios.add(new ServicioAdicional("Gimnasio", 20000));
 
         // Usuarios para iniciar sesión sin registrarse
-        sistema.registrarCliente("Brayan", "1003660985");
+        sistema.registrarCliente("q", "1");
         sistema.registrarCliente("Andres", "1072642260");
         sistema.registrarCliente("Pachito", "1076136352");
 
@@ -27,7 +27,11 @@ public class Main {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\n--- Hotel infidelidades ---");
+            System.out.println("\n   |-|-|-|-|-|-|-|-|-|-   ");
+            System.out.println(" -|-                  -|- ");
+            System.out.println("-|- Hotel infidelidades -|-");
+            System.out.println(" -|-                  -|- ");
+            System.out.println("   |-|-|-|-|-|-|-|-|-|-   ");
             System.out.println("\n1. Registrar Cliente");
             System.out.println("2. Iniciar Sesión");
             System.out.println("3. Cerrar Sesión");
@@ -59,8 +63,13 @@ public class Main {
                     sistema.cerrarSesion();
                     break;
                 case 4:
+                    System.out.println("\n");
+                    System.out.println("--- Habitaciones disponibles ---");
+                    System.out.println("\n101 Habitacion 'Simple' - precio $ 45000");
+                    System.out.println("102 Habitacion 'Doble' - precio $ 59000");
+                    System.out.println("103 Habitacion 'Suite' - precio $ 75000");
                     if (sistema.getClienteActual() != null) {
-                        System.out.print("Número de habitación: ");
+                        System.out.print("\nNúmero de habitación: ");
                         int numeroHabitacion = scanner.nextInt();
                         scanner.nextLine();
 
@@ -70,7 +79,7 @@ public class Main {
                                 .orElse(null);
 
                         if (habitacion != null) {
-                            System.out.print("Fecha de inicio (YYYY-MM-DD): ");
+                            System.out.print("\nFecha de inicio (YYYY-MM-DD): ");
                             String fechaInicio = scanner.nextLine();
                             System.out.print("Fecha de fin (YYYY-MM-DD): ");
                             String fechaFin = scanner.nextLine();
@@ -78,7 +87,13 @@ public class Main {
                             if (habitacion.reservar(fechaInicio, fechaFin)) {
                                 double montoTotal = habitacion.getPrecio();
 
-                                System.out.println("¿Desea agregar servicios adicionales? (si/no): ");
+                                System.out.println("\n-- Servicios adicionales disponibles --\n");
+                                System.out.println("Piscina -- Precio $ 15000");
+                                System.out.println("Restaurante -- Precio $ 30000");
+                                System.out.println("Spa -- Precio $ 30000");
+                                System.out.println("Gimnasio -- Precio $ 20000\n");
+
+                                System.out.print("¿Desea agregar servicios adicionales? (si/no): ");
                                 String respuesta = scanner.nextLine();
 
                                 if (respuesta.equalsIgnoreCase("si")) {
@@ -96,20 +111,20 @@ public class Main {
                                         if (servicioSeleccionado > 0 && servicioSeleccionado <= servicios.size()) {
                                             ServicioAdicional servicio = servicios.get(servicioSeleccionado - 1);
                                             montoTotal += servicio.getCosto();
-                                            System.out.println("Servicio de " + servicio.getNombre() + " agregado.");
+                                            System.out.println("\nServicio de " + servicio.getNombre() + " agregado.");
                                         } else {
-                                            System.out.println("Selección de servicio inválida: " + servicioSeleccionado);
+                                            System.out.println("\nSelección de servicio inválida: " + servicioSeleccionado);
                                         }
                                     }
                                 }
 
-                                System.out.println("Monto total a pagar por la reserva y servicios: $" + montoTotal);
-                                System.out.print("Método de pago (efectivo/tarjeta): ");
+                                System.out.println("\nMonto total a pagar por la reserva y servicios: $" + montoTotal);
+                                System.out.print("\nMétodo de pago (efectivo/tarjeta): ");
                                 String metodoPago = scanner.nextLine();
 
                                 Pago pago = new Pago(montoTotal, metodoPago);
                                 pago.procesarPago();
-                                System.out.println("Reserva y servicios adicionales confirmados.");
+                                System.out.println("\nReserva y servicios adicionales confirmados.");
                             }
                         } else {
                             System.out.println("Número de habitación no encontrado.");

@@ -60,10 +60,10 @@ class Habitacion {
         if (!reservada) {
             reservada = true;
             this.fechaFinReserva = fechaFin;
-            System.out.println("Habitación " + numero + " reservada del " + fechaInicio + " al " + fechaFin);
+            System.out.println("\nHabitación " + numero + " reservada del " + fechaInicio + " al " + fechaFin);
             return true;
         } else {
-            System.out.println("La habitación " + numero + " ya está reservada.");
+            System.out.println("\nLa habitación " + numero + " ya está reservada.");
             return false;
         }
     }
@@ -72,19 +72,19 @@ class Habitacion {
         if (reservada) {
             reservada = false;
             this.fechaFinReserva = null;
-            System.out.println("Reserva de la habitación " + numero + " cancelada del " + fechaInicio + " al " + fechaFin);
+            System.out.println("\nReserva de la habitación " + numero + " cancelada del " + fechaInicio + " al " + fechaFin);
         } else {
-            System.out.println("La habitación " + numero + " no está reservada.");
+            System.out.println("\nLa habitación " + numero + " no está reservada.");
         }
     }
 
     public boolean renovarReserva(String nuevaFechaFin) {
         if (reservada) {
-            System.out.println("Reserva de la habitación " + numero + " renovada hasta " + nuevaFechaFin);
+            System.out.println("\nReserva de la habitación " + numero + " renovada hasta " + nuevaFechaFin);
             this.fechaFinReserva = nuevaFechaFin;
             return true;
         } else {
-            System.out.println("No hay una reserva activa para esta habitación.");
+            System.out.println("\nNo hay una reserva activa para esta habitación.");
             return false;
         }
     }
